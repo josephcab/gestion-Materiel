@@ -1,3 +1,4 @@
+<!-- s'affiche dans la page utilisateur et plus précisément la tableau des utilisateurs -->
 <table class="table table-hover table-striped">
     <thead>
         <tr>
@@ -8,6 +9,7 @@
         </tr>
     </thead>
     <tbody>
+        <!--affiche les utilisateurs-->
         {% for item in ListUsers %}
         <tr id="tablerow{{ item.pk }}" aria-id="{{ item.pk }}" class="tr-table">
             <td style="display: none;">{{ item.pk }}</td>
@@ -20,27 +22,29 @@
 </table>
 
 <nav><ul class="pagination">
+    <!--désactive le bouton précédent si il est à la première page-->
     <li class="page-item {% if page.previous == page.current %}disabled{% endif %}">
         <a class="page-link" href="{% url 'users' %}list/{{ page.previous }}">Précédent</a>
     </li>
+    <!--bouton vers la première page-->
     <li class="page-item">
         <a class="page-link" {% if page.previous == page.current %}style="display:none" {% endif %}href="{% url 'users' 1 %}">1</a>
     </li>
-
+    <!-- il met le séparateur "..." non clicable-->
     {% if page.previous != 1 and page.previous != 2 %}
     <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
     {% endif %}
-
+    <!--affiche le numéro de la page actuelle-->
     <li class="page-item active"><a class="page-link" href="#">{{ page.current }}</a></li>
-
+    <!-- il met le deuxième séparateur "..." non clicable-->
     {% if page.next != page.max and page.next != page.maxm1 %}
     <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
     {% endif %}
-
+    <!--affiche le numéro de la dernière page-->
     {% if page.max > page.current %}
     <li class="page-item"><a class="page-link" href="{% url 'users' %}list/{{ page.max }}">{{ page.max }}</a></li>
     {% endif %}
 
-
+<!-- désactive le bouton suivant si il est a la dernière page -->
     <li class="page-item {% if page.next == page.current %}disabled{% endif %}"><a class="page-link" href="{% url 'users' %}list/{{ page.next }}">Suivant</a></li>
 </ul></nav>
